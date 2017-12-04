@@ -27,16 +27,26 @@ const players = [
      });
  };
 Meteor.startup( function () {
-    let name = "Waqar ";
-    let title = "Score Keep";
-    let jsx = (
-        <div>
-        <h1> {title}</h1>
+
+    Tracker.autorun(() =>  {
+        const players = Players.find().fetch();
+        let name = "Waqar ";
+        let title = "Score Keep";
+        let jsx = (
+            <div>
+            <h1> {title}</h1>
             <p> Hello {name} </p>
-            <p> this is my second p. </p>
-            {renderPlayers(players)}
-        </div>
+        <p> this is my second p. </p>
+        {renderPlayers(players)}
+    </div>
 
     );
-    ReactDOM.render(jsx, document.getElementById('root'));
+        ReactDOM.render(jsx, document.getElementById('root'));
+    });
+    Players.insert({
+        name: "ASAD",
+        score: 1
+    });
+
+
 });
