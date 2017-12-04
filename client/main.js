@@ -9,24 +9,17 @@ Tracker.autorun(() => {
     console.log("Players List: " ,  Players.find().fetch());
 });
 
-// const players = [
-//     {
-//         _id: '1',
-//         name: 'Lauren',
-//         score: 30
-//     },
-//     {
-//         _id: '2',
-//         name: 'Max',
-//         score: 30
-//     }
-//         ]
- const renderPlayers = function (playersList) {
+ const renderPlayers =  (playersList) => {
      return playersList.map((player) => {
-         return <p key = {player._id}> {player.name} has {player.score} point(s).  </p>;
+         return (
+             <p key = {player._id}>
+                {player.name} has {player.score} point(s).
+                <button onClick={() => { Players.remove({_id: player._id}) }}> X </button>
+            </p>
+     ) ;
      });
  };
-const handleSubmit = function (e) {
+const handleSubmit =  (e) => {
     let playerName = e.target.playerName.value;
     e.preventDefault();
     if (playerName)
@@ -39,7 +32,7 @@ const handleSubmit = function (e) {
     }
 
 };
-Meteor.startup( function () {
+Meteor.startup(  () => {
 
     Tracker.autorun(() =>  {
         const players = Players.find().fetch();
@@ -56,7 +49,6 @@ Meteor.startup( function () {
             <button> Add Player </button>
         </form>
     </div>
-
     );
         ReactDOM.render(jsx, document.getElementById('root'));
     });
