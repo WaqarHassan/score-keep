@@ -17,7 +17,11 @@ Tracker.autorun(() => {
 Meteor.startup(  () => {
 
     Tracker.autorun(() =>  {
-        const players = Players.find().fetch();
+        const players = Players.find({}, {
+            sort: {
+                score: -1
+            }
+        }).fetch();
         let title = "Score Keep";
         ReactDOM.render(<App title={title} players={players}/> , document.getElementById('root'));
     });
